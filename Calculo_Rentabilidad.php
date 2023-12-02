@@ -20,8 +20,6 @@ $products = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 $conn->close();
 
-error_log(print_r($resultsTable, true));
-
 ?>
 <!DOCTYPE html>
 
@@ -35,7 +33,7 @@ error_log(print_r($resultsTable, true));
     <form id="calculatorForm" method="POST" action="Insertar_Rentabilidad.php">
 
     <label class="right.align"  for="Gestion">Gestion</label><br>
-        <select class="right.align" name="Gestion" id="Gestion">
+        <select class="right.align" name="Gestion" id="gestion">
             <option value="">Elegir Gestion</option>
             <option value="2019">2019</option>
             <option value="2020">2020</option>
@@ -45,7 +43,7 @@ error_log(print_r($resultsTable, true));
             </select><br>
 
         <label class="right.align"  for="Mes">Mes</label><br>
-        <select class="right.align" name="Mes" id="Mes">
+        <select class="right.align" name="Mes" id="mes">
             <option value="">Elegir Mes</option>
             <option value="Enero">Enero</option>
             <option value="Febrero">Febrero</option>
@@ -83,15 +81,13 @@ echo '</select>';
         <input type="submit" value="Calcular">
         <button id="saveTable">Guardar tabla</button>
         <button id="compareTables">Comparar tablas</button>    
-        
-        <input type="hidden" id="profitability" name="profitability">
-        <input type="hidden" id="tradeIndex" name="tradeIndex">
-        <input type="hidden" id="utilityContribution" name="utilityContribution">
-
+    
     </form>
     <h2>Tabla de datos</h2>
     <table id="data-Table">
         <tr>
+            <th>Gestion</th>
+            <th>Mes</th>
             <th>ID</th>
             <th>Artículo</th>
             <th>Utilidades</th>

@@ -13,6 +13,8 @@ foreach ($dataTable as $row) {
     $Ingresos_por_venta = $row['Ingreso por Venta'];
     $Total_ingresos_por_venta = $row['Ingresos Totales por Venta'];
     $costo_variable = $row['Costo Variable'];
+    $Gestion = $row['Gestion'];
+    $Mes = $row['Mes'];
 
     // Buscar el correspondiente resultado para este producto en $resultsTable
     foreach ($resultsTable as $result) {
@@ -32,8 +34,5 @@ foreach ($dataTable as $row) {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
 $conn->close();
-
-error_log(print_r($resultsTable, true));
 ?>
