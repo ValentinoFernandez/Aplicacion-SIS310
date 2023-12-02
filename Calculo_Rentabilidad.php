@@ -20,6 +20,8 @@ $products = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 $conn->close();
 
+error_log(print_r($resultsTable, true));
+
 ?>
 <!DOCTYPE html>
 

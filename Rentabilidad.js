@@ -71,12 +71,10 @@ function addDataResults(){
 function getTableData(tableID) {
     var table = document.getElementById(tableID);
     var data = [];
-
     // Iterar sobre las filas de la tabla
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
         var rowData = {};
-
         // Iterar sobre las celdas de la fila
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j];
@@ -94,15 +92,11 @@ document.getElementById('saveTable').addEventListener('click', function(event){
     // Recoger los datos de las tablas
     var dataTable = getTableData('data-Table');
     var resultsTable = getTableData('resultsTable');
-    var Gestion = document.getElementById('Gestion').value;
-    var Mes = document.getElementById('Mes').value;
 
     // Crear un objeto FormData y añadir los datos de las tablas
     var formData = new FormData();
     formData.append('dataTable', JSON.stringify(dataTable));
     formData.append('resultsTable', JSON.stringify(resultsTable));
-    formData.append('Gestion', Gestion);
-    formData.append('Mes', Mes);
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'Insertar_Rentabilidad.php', true);
