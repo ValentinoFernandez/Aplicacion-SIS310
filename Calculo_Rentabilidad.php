@@ -69,15 +69,17 @@ foreach ($products as $index => $product )  {
 echo '</select>';
 ?>
 <br>
-
-        <label for="utilities">Utilidades:</label><br>
-        <input type="number" id="utilities" name="utilities"><br>
         <label for="salesIncome">Ingresos por Venta:</label><br>
         <input type="number" id="salesIncome" name="salesIncome"><br>
-        <label for="totalSalesIncome">Ingresos Totales por Venta:</label><br>
-        <input type="number" id="totalSalesIncome" name="totalSalesIncome"><br>
+        <label for="fixedCosts">Costos Fijos:</label><br>
+        <input type="number" id="fixedCosts" name="fixedCosts"><br>
+        <label for="administrativeCosts">Costos Administrativos:</label><br>
+        <input type="number" id="administrativeCosts" name="administrativeCosts"><br>
+        <label for="commercialCosts">Costos Comerciales:</label><br>
+        <input type="number" id="commercialCosts" name="commercialCosts"><br>
         <label for="variableCost">Costo Variable:</label><br>
         <input type="number" id="variableCost" name="variableCost"><br>
+
         <input type="submit" value="Calcular">
         <button id="saveTable">Guardar tabla</button>
         <button id="compareTables">Comparar tablas</button>    
@@ -93,7 +95,7 @@ echo '</select>';
             <th>Utilidades</th>
             <th>Ingresos por Venta</th>
             <th>Ingresos Totales por Venta</th>
-            <th>Costo Variable</th>
+            <th>Costo Total</th>
 
         </tr>
     </table>

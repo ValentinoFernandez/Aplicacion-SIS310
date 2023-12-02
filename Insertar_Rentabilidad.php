@@ -12,7 +12,7 @@ foreach ($dataTable as $row) {
     $utilidades = $row['Utilidades'];
     $Ingresos_por_venta = $row['Ingreso por Venta'];
     $Total_ingresos_por_venta = $row['Ingresos Totales por Venta'];
-    $costo_variable = $row['Costo Variable'];
+    $costo_total = $row['Costo Total'];
     $Gestion = $row['Gestion'];
     $Mes = $row['Mes'];
 
@@ -25,8 +25,8 @@ foreach ($dataTable as $row) {
             break;
         }
     }
-    $sql = "INSERT INTO rentabilidad (id_producto, Gestion, utilidades, Ingresos_por_venta, Total_ingresos_por_venta, costo_variable, rentabilidad, indice_comerciabilidad, contribucion_utilitaria, Mes)
-    VALUES ('$id_producto', '$Gestion', '$utilidades', '$Ingresos_por_venta', '$Total_ingresos_por_venta', '$costo_variable', '$rentabilidad', '$indice_comerciabilidad', '$contribucion_utilitaria', '$Mes')";
+    $sql = "INSERT INTO rentabilidad (id_producto, Gestion, utilidades, Ingresos_por_venta, Total_ingresos_por_venta, costo_total, rentabilidad, indice_comerciabilidad, contribucion_utilitaria, Mes)
+    VALUES ('$id_producto', '$Gestion', '$utilidades', '$Ingresos_por_venta', '$Total_ingresos_por_venta', '$costo_total', '$rentabilidad', '$indice_comerciabilidad', '$contribucion_utilitaria', '$Mes')";
 
     if ($conn->query($sql) === TRUE) {
       echo "New record created successfully";
