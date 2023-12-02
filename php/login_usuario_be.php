@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-    include  'conexion_be.php';
+include 'db_conexion.php';
 
     $correo =$_POST['correo'];
     $contrasena =$_POST['contrasena'];

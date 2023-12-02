@@ -18,9 +18,9 @@
       <ul class="links">
         <h4>Crear una empresa</h4>
         <li>
-            <a href="php-rentabilidad/MenuEmpresa.php">
-              <span class="material-symbols-outlined">dashboard</span>
-              Dashboard
+            <a href="Menú.php">
+              <span class="material-symbols-outlined">Crear Empresa</span>
+              Crear Empresa
             </a>
           </li>
           
