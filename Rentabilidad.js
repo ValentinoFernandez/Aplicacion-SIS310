@@ -3,6 +3,8 @@ var dataresults=[];
 document.getElementById('calculatorForm').addEventListener('submit', function(event) {
   event.preventDefault();
 
+  var gestion = document.getElementById('gestion').value;
+  var mes = document.getElementById('mes').value;
   var articleNameValue = document.getElementById('articleName').value;
   var articleId = articleNameValue.split('|')[0];
   var articleName = articleNameValue.split('|')[1];
@@ -11,7 +13,7 @@ document.getElementById('calculatorForm').addEventListener('submit', function(ev
   var totalSalesIncome = parseFloat(document.getElementById('totalSalesIncome').value);
   var variableCost = parseFloat(document.getElementById('variableCost').value);
 
-  data.push({articleId: articleId, articleName: articleName, utilities: utilities, salesIncome: salesIncome, totalSalesIncome: totalSalesIncome, variableCost: variableCost});
+  data.push({gestion: gestion, mes: mes, articleId: articleId, articleName: articleName, utilities: utilities, salesIncome: salesIncome, totalSalesIncome: totalSalesIncome, variableCost: variableCost});
 
   addData();
 
@@ -37,18 +39,20 @@ document.getElementById('calculatorForm').addEventListener('submit', function(ev
   
 function addData(){
   var dataTable = document.getElementById('data-Table');
-  dataTable.innerHTML = '<tr><th>ID</th><th>Artículo</th><th>Utilidades</th><th>Ingreso por Venta</th><th>Ingresos Totales por Venta</th><th>Costo Variable</th></tr>';
+  dataTable.innerHTML = '<tr><th>Gestion</th><th>Mes</th><th>ID</th><th>Artículo</th><th>Utilidades</th><th>Ingreso por Venta</th><th>Ingresos Totales por Venta</th><th>Costo Variable</th></tr>';
     // Reiniciar los arrays antes de agregar los nuevos datos
     for (var i = 0; i < data.length; i++) {
       // Añadir fila a la tabla de datos
       var dataRow = dataTable.insertRow(-1);
-      dataRow.insertCell(0).innerHTML = data[i].articleId;
-      dataRow.insertCell(1).innerHTML = data[i].articleName;
-      dataRow.insertCell(2).innerHTML = data[i].utilities;
-      dataRow.insertCell(3).innerHTML = data[i].salesIncome;
-      dataRow.insertCell(4).innerHTML = data[i].totalSalesIncome;
-      dataRow.insertCell(5).innerHTML = data[i].variableCost;
-  }
+      dataRow.insertCell(0).innerHTML = data[i].gestion;
+      dataRow.insertCell(1).innerHTML = data[i].mes;
+      dataRow.insertCell(2).innerHTML = data[i].articleId;
+      dataRow.insertCell(3).innerHTML = data[i].articleName;
+      dataRow.insertCell(4).innerHTML = data[i].utilities;
+      dataRow.insertCell(5).innerHTML = data[i].salesIncome;
+      dataRow.insertCell(6).innerHTML = data[i].totalSalesIncome;
+      dataRow.insertCell(7).innerHTML = data[i].variableCost;
+    }
 }
 
 function addDataResults(){
@@ -71,12 +75,10 @@ function addDataResults(){
 function getTableData(tableID) {
     var table = document.getElementById(tableID);
     var data = [];
-
     // Iterar sobre las filas de la tabla
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
         var rowData = {};
-
         // Iterar sobre las celdas de la fila
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j];
@@ -94,15 +96,12 @@ document.getElementById('saveTable').addEventListener('click', function(event){
     // Recoger los datos de las tablas
     var dataTable = getTableData('data-Table');
     var resultsTable = getTableData('resultsTable');
-    var Gestion = document.getElementById('Gestion').value;
-    var Mes = document.getElementById('Mes').value;
 
     // Crear un objeto FormData y añadir los datos de las tablas
     var formData = new FormData();
     formData.append('dataTable', JSON.stringify(dataTable));
     formData.append('resultsTable', JSON.stringify(resultsTable));
-    formData.append('Gestion', Gestion);
-    formData.append('Mes', Mes);
+
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'Insertar_Rentabilidad.php', true);
@@ -119,28 +118,23 @@ document.getElementById('saveTable').addEventListener('click', function(event){
 function getTableData(tableID) {
     var table = document.getElementById(tableID);
     var data = [];
-
     // Check if table exists
     if (!table) {
         console.error('Table with ID ' + tableID + ' does not exist.');
         return data;
     }
-
     // Iterar sobre las filas de la tabla
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
         var rowData = {};
-
         // Iterar sobre las celdas de la fila
         for (var j = 0; j < row.cells.length; j++) {
             var cell = row.cells[j];
-
             // Check if header cell exists
             if (!table.rows[0].cells[j]) {
                 console.error('Header cell at index ' + j + ' does not exist.');
                 continue;
             }
-
             var header = table.rows[0].cells[j].innerText;
             rowData[header] = cell.innerText;
         }

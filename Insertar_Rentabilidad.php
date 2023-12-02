@@ -13,9 +13,18 @@ foreach ($dataTable as $row) {
     $Ingresos_por_venta = $row['Ingreso por Venta'];
     $Total_ingresos_por_venta = $row['Ingresos Totales por Venta'];
     $costo_variable = $row['Costo Variable'];
+    $Gestion = $row['Gestion'];
+    $Mes = $row['Mes'];
 
-    // Aquí necesitarás buscar el correspondiente resultado para este producto en $resultsTable
-
+    // Buscar el correspondiente resultado para este producto en $resultsTable
+    foreach ($resultsTable as $result) {
+        if ($result['ID'] == $id_producto) {
+            $rentabilidad = $result['Rentabilidad de Ventas'];
+            $indice_comerciabilidad = $result['Índice de Comerciabilidad'];
+            $contribucion_utilitaria = $result['Contribución Utilitaria'];
+            break;
+        }
+    }
     $sql = "INSERT INTO rentabilidad (id_producto, Gestion, utilidades, Ingresos_por_venta, Total_ingresos_por_venta, costo_variable, rentabilidad, indice_comerciabilidad, contribucion_utilitaria, Mes)
     VALUES ('$id_producto', '$Gestion', '$utilidades', '$Ingresos_por_venta', '$Total_ingresos_por_venta', '$costo_variable', '$rentabilidad', '$indice_comerciabilidad', '$contribucion_utilitaria', '$Mes')";
 
@@ -25,6 +34,5 @@ foreach ($dataTable as $row) {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
 $conn->close();
 ?>
