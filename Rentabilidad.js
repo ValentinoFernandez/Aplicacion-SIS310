@@ -1,5 +1,6 @@
 var data=[];
 var dataresults=[];
+var totalSalesIncome =0;
 document.getElementById('calculatorForm').addEventListener('submit', function(event) {
   event.preventDefault();
 
@@ -8,14 +9,30 @@ document.getElementById('calculatorForm').addEventListener('submit', function(ev
   var articleNameValue = document.getElementById('articleName').value;
   var articleId = articleNameValue.split('|')[0];
   var articleName = articleNameValue.split('|')[1];
-  var utilities = parseFloat(document.getElementById('utilities').value);
+  var fixedCosts = parseFloat(document.getElementById('fixedCosts').value);
+  var administrativeCosts = parseFloat(document.getElementById('administrativeCosts').value);
+  var commercialCosts = parseFloat(document.getElementById('commercialCosts').value);
   var salesIncome = parseFloat(document.getElementById('salesIncome').value);
-  var totalSalesIncome = parseFloat(document.getElementById('totalSalesIncome').value);
   var variableCost = parseFloat(document.getElementById('variableCost').value);
+  
+    // Calcular las utilidades
+    var utilities = salesIncome - (fixedCosts + variableCost + administrativeCosts + commercialCosts);
 
-  data.push({gestion: gestion, mes: mes, articleId: articleId, articleName: articleName, utilities: utilities, salesIncome: salesIncome, totalSalesIncome: totalSalesIncome, variableCost: variableCost});
+    // Añadir los ingresos por venta al total de ingresos por venta
+    totalSalesIncome += salesIncome;
+  
+    var Costototal = fixedCosts + variableCost + administrativeCosts + commercialCosts ; 
 
-  addData();
+    data.push({gestion: gestion,
+               mes: mes,
+               articleId: articleId,
+               articleName: articleName,
+               utilities: utilities,
+               salesIncome: salesIncome,
+               totalSalesIncome: totalSalesIncome,
+               Costototal: Costototal});
+
+    addData();
 
   // Calcular la rentabilidad de ventas, el índice de comerciabilidad y la contribución utilitaria
   var salesProfitability = utilities / salesIncome;
@@ -51,7 +68,7 @@ function addData(){
       dataRow.insertCell(4).innerHTML = data[i].utilities;
       dataRow.insertCell(5).innerHTML = data[i].salesIncome;
       dataRow.insertCell(6).innerHTML = data[i].totalSalesIncome;
-      dataRow.insertCell(7).innerHTML = data[i].variableCost;
+      dataRow.insertCell(7).innerHTML = data[i].Costototal;
     }
 }
 
