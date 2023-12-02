@@ -11,7 +11,7 @@ include 'db_conexion.php';
     VALUES('$nombre_completo', '$correo', '$usuario','$contrasena')";
 
     //verificar que valores no se repitan
-     $verificar_correo = mysqli_query($conexion, "SELECT * FROM usuarios WHERE correo='$correo' ");
+     $verificar_correo = mysqli_query($conn, "SELECT * FROM usuarios WHERE correo='$correo' ");
 
     if(mysqli_num_rows($verificar_correo) > 0){
         echo'
@@ -24,7 +24,7 @@ include 'db_conexion.php';
 
     }
 
-    $verificar_usuario = mysqli_query($conexion, "SELECT * FROM usuarios WHERE usuario='$usuario' ");
+    $verificar_usuario = mysqli_query($conn, "SELECT * FROM usuarios WHERE usuario='$usuario' ");
 
     if(mysqli_num_rows($verificar_usuario) > 0){
         echo'
@@ -37,7 +37,7 @@ include 'db_conexion.php';
 
     }
 
-    $ejecutar = mysqli_query($conexion, $query);
+    $ejecutar = mysqli_query($conn, $query);
     if($ejecutar){
         echo'
             <script>
@@ -53,6 +53,6 @@ include 'db_conexion.php';
         </script>
     ';
     }
-    mysqli_close($conexion);
+    mysqli_close($conn);
 
 ?>
