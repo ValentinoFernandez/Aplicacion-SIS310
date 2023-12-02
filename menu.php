@@ -70,7 +70,7 @@
         </li>
         <li class="logout-link">    
           <span class="nav-item"></span>
-          <a href="php/cerrar_sesion.php" class="logout">Cerrar Sesion</a>
+          <a href="cerrar_sesion.php" class="logout">Cerrar Sesion</a>
         </li>
       </ul>
     </aside>

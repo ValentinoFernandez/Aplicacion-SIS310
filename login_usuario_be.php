@@ -11,7 +11,7 @@ include 'db_conexion.php';
 
     if(mysqli_num_rows($validar_login)>0){
         $_SESSION['usuario']=$correo;
-        header("location: ../menu.php");
+        header("location: menu.php");
         exit;
     }else{
         echo'
