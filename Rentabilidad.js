@@ -59,18 +59,18 @@ function addData(){
   dataTable.innerHTML = '<tr><th>Gestion</th><th>Mes</th><th>ID</th><th>Artículo</th><th>Utilidades</th><th>Ingreso por Venta</th><th>Ingresos Totales por Venta</th><th>Costo Variable</th></tr>';
     // Reiniciar los arrays antes de agregar los nuevos datos
     for (var i = 0; i < data.length; i++) {
-      // Añadir fila a la tabla de datos
-      var dataRow = dataTable.insertRow(-1);
-      dataRow.insertCell(0).innerHTML = data[i].gestion;
-      dataRow.insertCell(1).innerHTML = data[i].mes;
-      dataRow.insertCell(2).innerHTML = data[i].articleId;
-      dataRow.insertCell(3).innerHTML = data[i].articleName;
-      dataRow.insertCell(4).innerHTML = data[i].utilities;
-      dataRow.insertCell(5).innerHTML = data[i].salesIncome;
-      dataRow.insertCell(6).innerHTML = data[i].totalSalesIncome;
-      dataRow.insertCell(7).innerHTML = data[i].Costototal;
-    }
-}
+        // Añadir fila a la tabla de datos
+        var dataRow = dataTable.insertRow(-1);
+        dataRow.insertCell(0).innerHTML = data[i].gestion;
+        dataRow.insertCell(1).innerHTML = data[i].mes;
+        dataRow.insertCell(2).innerHTML = data[i].articleId;
+        dataRow.insertCell(3).innerHTML = data[i].articleName;
+        dataRow.insertCell(4).innerHTML = data[i].utilities;
+        dataRow.insertCell(5).innerHTML = data[i].salesIncome;
+        dataRow.insertCell(6).innerHTML = totalSalesIncome; // Actualizar el 'Ingreso Total por Venta' para todos los productos
+        dataRow.insertCell(7).innerHTML = data[i].Costototal;
+      }
+  }
 
 function addDataResults(){
     var dataTable = document.getElementById('resultsTable');
