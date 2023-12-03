@@ -1,6 +1,6 @@
 <?php
 
-include 'db_conexion.php';
+include 'conexion_be.php';
 
     $nombre_completo = $_POST['nombre_completo'];
     $correo =$_POST['correo'];

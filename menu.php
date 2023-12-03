@@ -19,8 +19,8 @@
         <h4>Crear una empresa</h4>
         <li>
             <a href="Menú.php">
-              <span class="material-symbols-outlined">Crear Empresa</span>
-              Crear Empresa
+              <span class="material-symbols-outlined">Dashboard</span>
+              Crear Empresa 
             </a>
           </li>
           
@@ -69,8 +69,8 @@
           <a href="#">Settings</a>
         </li>
         <li class="logout-link">    
-          <span class="nav-item"></span>
-          <a href="cerrar_sesion.php" class="logout">Cerrar Sesion</a>
+          <span class="material-symbols-outlined"></span>
+          <a href="php/cerrar_sesion.php" class="logout">Cerrar Sesion</a>
         </li>
       </ul>
     </aside>

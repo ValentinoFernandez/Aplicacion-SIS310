@@ -1,6 +1,6 @@
 <?php
 
-$conexion = mysqli_connect("localhost", "root", "", "login_register_db");
+$conn = mysqli_connect("localhost", "root", "", "login_register_db");
 
 //comprobacion de la base de datos
 /*
