@@ -51,6 +51,7 @@ document.getElementById('calculatorForm').addEventListener('submit', function(ev
   dataresults.push({articleId: articleId, articleName: articleName,salesProfitability: salesProfitability, tradeIndex: tradeIndex, utilityContribution: utilityContribution, conclusion: conclusion});
 
   addDataResults();
+  updateTradeIndex(); 
 
 });
   
@@ -87,6 +88,15 @@ function addDataResults(){
         dataRow.insertCell(5).innerHTML = dataresults[i].conclusion;
     }
   }
+
+  function updateTradeIndex() {
+  // Calcular e insertar el índice de comerciabilidad actualizado para cada producto
+  var dataTable = document.getElementById('resultsTable');
+  for (var i = 0; i < data.length; i++) {
+    var tradeIndex = data[i].salesIncome / totalSalesIncome;
+    dataTable.rows[i + 1].cells[3].innerHTML = tradeIndex.toFixed(2);
+  }
+}
 
 // Función para recoger los datos de la tabla
 function getTableData(tableID) {
