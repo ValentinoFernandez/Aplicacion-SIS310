@@ -57,7 +57,7 @@ document.getElementById('calculatorForm').addEventListener('submit', function(ev
   
 function addData(){
   var dataTable = document.getElementById('data-Table');
-  dataTable.innerHTML = '<tr><th>Gestion</th><th>Mes</th><th>ID</th><th>Artículo</th><th>Utilidades</th><th>Ingreso por Venta</th><th>Ingresos Totales por Venta</th><th>Costo Variable</th></tr>';
+  dataTable.innerHTML = '<tr><th>Gestion</th><th>Mes</th><th>ID</th><th>Artículo</th><th>Utilidades</th><th>Ingreso por Venta</th><th>Ingresos Totales por Venta</th><th>Costo Total</th></tr>';
     // Reiniciar los arrays antes de agregar los nuevos datos
     for (var i = 0; i < data.length; i++) {
         // Añadir fila a la tabla de datos
