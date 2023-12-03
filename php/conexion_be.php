@@ -1,6 +1,21 @@
 <?php
 
-$conn = mysqli_connect("localhost", "root", "", "login_register_db");
+$server = "localhost";
+$user = "root";
+$password = "";
+$db = "empresas";
+
+// Crear conexión
+$conn = new mysqli($server, $user, $password, $db);
+
+// Verificar conexión
+if ($conn->connect_errno) {
+  die("Conexión fallida: " . $conn->connect_errno);
+}else{
+  echo "conectado";
+}
+
+//$conn = mysqli_connect("localhost", "root", "", "login_register_db");
 
 //comprobacion de la base de datos
 /*
