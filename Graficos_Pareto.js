@@ -1,4 +1,4 @@
-
+//libreria para utilizar las gráficas
 src="https://cdn.jsdelivr.net/npm/chart.js"
 
 var data = [];
@@ -16,15 +16,24 @@ document.getElementById('data-form').addEventListener('submit', function(event) 
     var precio = document.getElementById('precio').value;
     var ventas = unidades * precio;
     
-    data.push({gestion: gestion,
-               mes: mes,
-               articleId: articleId,
-               articleName: articleName,
-               unidades: unidades, 
-               precio: precio, 
-               ventas: ventas});
+    // Validar si ya existe un objeto con el mismo año, mes y nombre de artículo
+    var exists = data.some(function(el) {
+        return el.gestion === gestion && el.mes === mes && el.articleName === articleName;
+    });
     
-    addData();
+    if (!exists) {
+        data.push({gestion: gestion,
+                   mes: mes,
+                   articleId: articleId,
+                   articleName: articleName,
+                   unidades: unidades, 
+                   precio: precio, 
+                   ventas: ventas});
+        
+        addData();
+    } else {
+        alert('Ya has añadido datos para este artículo en el mismo mes y año. Por favor, cambia de artículo o de mes.');
+    }
 });
 
 function addData() {
@@ -143,13 +152,13 @@ document.getElementById('saveTable').addEventListener('click', function(event){
     event.preventDefault();
 
     // Recoger los datos de las tablas
-    var dataTable = getTableData('data-Table');
-    var resultsTable = getTableData('resultsTable');
+    var dataTable = getTableData('data-table');
+    var resultsTable = getTableData('results-table');
 
     // Crear un objeto FormData y añadir los datos de las tablas
     var formData = new FormData();
     formData.append('dataTable', JSON.stringify(dataTable));
-    formData.append('resultsTable', JSON.stringify(resultsTable));
+    formData.append('results-Table', JSON.stringify(resultsTable));
 
 
     var xhr = new XMLHttpRequest();

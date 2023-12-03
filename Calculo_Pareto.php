@@ -96,7 +96,7 @@ echo '</select>';
 </table>
 
 <h2>Tabla de Resultados</h2>
-<table id="resultstable">
+<table id="results-table">
   <tr>
     <th>ID</th>
     <th>Nombre</th>
@@ -105,6 +105,7 @@ echo '</select>';
     <th>Porcentaje Acumulado %</th>
   </tr>
 </table>
+
 
 <!-- Gráfico de Pareto -->
 <h2>Gráfico de Pareto</h2>

@@ -3,29 +3,30 @@ include 'db_conexion.php';
 
 // Decodificar los datos de las tablas
 $dataTable = json_decode($_POST['dataTable'], true);
-$resultsTable = json_decode($_POST['resultsTable'], true);
+$resultsTable = json_decode($_POST['results-Table'], true);
 
 // Iterar sobre los datos de las tablas e insertarlos en la base de datos
 foreach ($dataTable as $row) {
     $id_producto = $row['ID'];
-    $nombre_producto = $row['Artículo'];
+    $nombre_producto = $row['Nombre'];
     $unidades = $row['Unidades'];
     $Precio_Unitario = $row['Precio Unitario'];
-    $ventas = $row['ventas'];
+    $ingreso_venta = $row['Ventas'];
     $Gestion = $row['Gestion'];
     $Mes = $row['Mes'];
 
     // Buscar el correspondiente resultado para este producto en $resultsTable
     foreach ($resultsTable as $result) {
         if ($result['ID'] == $id_producto) {
-            $rentabilidad = $result['Rentabilidad de Ventas'];
-            $indice_comerciabilidad = $result['Índice de Comerciabilidad'];
-            $contribucion_utilitaria = $result['Contribución Utilitaria'];
+            $ventas_totales = $result['Ventas Totales'];
+            $porcentaje_acumulado = $result['Porcentaje Acumulado'];
+            $porcentaje_acumulado_porcentaje = $result['Porcentaje Acumulado %'];
             break;
         }
     }
-    $sql = "INSERT INTO rentabilidad (id_producto, Gestion, utilidades, Ingresos_por_venta, Total_ingresos_por_venta, costo_total, rentabilidad, indice_comerciabilidad, contribucion_utilitaria, Mes)
-    VALUES ('$id_producto', '$Gestion', '$utilidades', '$Ingresos_por_venta', '$Total_ingresos_por_venta', '$costo_total', '$rentabilidad', '$indice_comerciabilidad', '$contribucion_utilitaria', '$Mes')";
+
+    $sql = "INSERT INTO pareto (id_producto, ingreso_venta, ingresos_totales_venta, porcentaje_acumulado, porcentaje_acumulado_porcentaje, Gestion, Mes, cantidad_unidades, precio_unitario)
+    VALUES ('$id_producto', '$ingreso_venta', '$ventas_totales', '$porcentaje_acumulado', '$porcentaje_acumulado_porcentaje', '$Gestion', '$Mes', '$unidades', '$Precio_Unitario')";
 
     if ($conn->query($sql) === TRUE) {
       echo "New record created successfully";
