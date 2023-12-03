@@ -82,7 +82,7 @@ echo '</select>';
 
         <input type="submit" value="Calcular">
         <button id="saveTable">Guardar tabla</button>
-        <button id="compareTables">Comparar tablas</button>    
+   
     
     </form>
     <h2>Tabla de datos</h2>

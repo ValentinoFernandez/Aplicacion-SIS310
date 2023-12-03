@@ -83,7 +83,6 @@ echo '</script>';
      
         <input type="submit" value="Añadir datos">
         <button id="saveTable">Guardar tabla</button>
-        <button id="compareTables">Comparar tablas</button>  
 
     </form>
 
