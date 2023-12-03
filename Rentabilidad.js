@@ -72,7 +72,6 @@ function addData(){
         dataRow.insertCell(7).innerHTML = data[i].Costototal;
       }
   }
-
 function addDataResults(){
     var dataTable = document.getElementById('resultsTable');
     dataTable.innerHTML = '<tr><th>ID</th><th>Artículo</th><th>Rentabilidad de Ventas</th><th>Índice de Comerciabilidad</th><th>Contribución Utilitaria</th><th>Acciones</th></tr>';
