@@ -13,7 +13,8 @@ $result = $conn->query($sql);
     <title>Biblioteca de empresas</title>
 </head>
 <body>
-    <h1>Bienvenido 'Nombre de Usuario': Biblioteca de empresas</h1>
+    <!--<h1>Bienvenido 'Nombre de Usuario': Biblioteca de empresas</h1>-->
+    <h1>Bienvenido '<?php echo $usuario; ?>': Biblioteca de empresas</h1>
     <table>
         <tr>
             <th>Nombre empresa</th>
