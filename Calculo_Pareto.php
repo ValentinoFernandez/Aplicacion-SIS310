@@ -68,7 +68,12 @@ foreach ($products as $index => $product )  {
     echo '<option value="' . $product['id'] . '|' . $product['nombre'] . '">' . $product['nombre'] . '</option>';
 }
 echo '</select>';
-     ?>
+  
+echo '<script>';
+echo 'var allArticles = ' . json_encode(array_column($products, 'nombre')) . ';';
+echo '</script>';
+  
+  ?>
             <br>
 
         <label for="unidades">Unidades:</label><br>

@@ -23,6 +23,11 @@ document.getElementById('calculatorForm').addEventListener('submit', function(ev
   
     var Costototal = fixedCosts + variableCost + administrativeCosts + commercialCosts ; 
 
+// Validar si ya existe un objeto con el mismo año, mes y nombre de artículo
+var exists = data.some(function(el) {
+  return el.gestion === gestion && el.mes === mes && el.articleName === articleName;
+});
+if (!exists) {
     data.push({gestion: gestion,
                mes: mes,
                articleId: articleId,
@@ -31,8 +36,10 @@ document.getElementById('calculatorForm').addEventListener('submit', function(ev
                salesIncome: salesIncome,
                totalSalesIncome: totalSalesIncome,
                Costototal: Costototal});
-
     addData();
+} else {
+    alert('Ya has añadido datos para este artículo en el mismo mes y año. Por favor, cambia de artículo o de mes.');
+}
 
   // Calcular la rentabilidad de ventas, el índice de comerciabilidad y la contribución utilitaria
   var salesProfitability = utilities / salesIncome;
