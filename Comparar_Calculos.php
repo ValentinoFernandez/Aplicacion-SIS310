@@ -1,91 +1,85 @@
 <?php
 include 'db_conexion.php';
+
+// Obtener empresas
+$sqlEmpresas = "SELECT id, nombre FROM Empresas";
+$resultEmpresas = $conn->query($sqlEmpresas);
+$empresas = $resultEmpresas->fetch_all(MYSQLI_ASSOC);
+
+// Cerrar conexión
+$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="Style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
+    <label >Empresas guardadas</label><br>
     <select id="empresa">
-        <option value="">Selecciona una empresa</option>
-        <!-- Las opciones de las empresas se llenarán aquí con AJAX -->
+        <option>Seleccione una Empresa</option>
+        <?php
+        foreach ($empresas as $empresa) {
+            echo "<option value='".$empresa['id']."'>".$empresa['nombre']."</option>";
+        }
+        ?>
     </select>
+<br>
 
+    <label>Productos:</label><br>
     <select id="producto">
-        <option value="">Selecciona un producto</option>
-        <!-- Las opciones de los productos se llenarán aquí con AJAX -->
+        <option>Seleccione un producto</option>
     </select>
+<br>
 
-    <select id="gestion">
-        <option value="">Selecciona una gestión</option>
-        <!-- Las opciones de las gestiones se llenarán aquí con AJAX -->
-    </select>
+    <label >Comparación de calculos</label><br>
+        <select class="right.align" name="calculos" id=comparación>
+            <option value="">Elegir Tipo de comparación</option>
+            <option value="Pareto">Pareto</option>
+            <option value="Rentabilidad">Rentabilidad</option>
+            </select><br>
 
-    <select id="calculo">
-        <option value="">Selecciona un cálculo</option>
-        <option value="pareto">Pareto</option>
-        <option value="rentabilidad">Rentabilidad</option>
-    </select>
 
-    <button id="listo">Listo</button>
-
-    <table id="datos">
-        <!-- Los datos se mostrarán aquí -->
-    </table>
+    <label class="right.align" for="Gestion">Gestion: </label><br>
+        <select class="right.align" name="Gestion" id="gestion">
+            <option value="">Elegir Gestion</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            </select><br>
 
 <script>
-$(document).ready(function(){
-    $('#empresa').change(function(){
-        var empresaId = $(this).val();
-        if(empresaId != ""){
-            $.ajax({
-                url: 'getProductos.php',
-                type: 'post',
-                data: {empresaId: empresaId},
-                dataType: 'json',
-                success: function(response){
-                    var len = response.length;
-                    $("#producto").empty();
-                    for( var i = 0; i<len; i++){
-                        var id = response[i]['id'];
-                        var nombre = response[i]['nombre'];
-                        $("#producto").append("<option value='"+id+"'>"+nombre+"</option>");
-                    }
-                }
-            });
+document.addEventListener('DOMContentLoaded', function() {
+    var empresaSelect = document.getElementById('empresa');
+    var productoSelect = document.getElementById('producto');
+
+    // Evento cuando se cambia la empresa seleccionada
+    empresaSelect.addEventListener('change', function() {
+        var empresaId = empresaSelect.value;
+
+        // Limpiar opciones de producto
+        while (productoSelect.firstChild) {
+            productoSelect.removeChild(productoSelect.firstChild);
         }
-    });
 
-    // Similarmente, puedes hacer esto para gestion y calculo
-
-    $('#listo').click(function(){
-        var empresaId = $('#empresa').val();
-        var productoId = $('#producto').val();
-        var gestionId = $('#gestion').val();
-        var calculoId = $('#calculo').val();
-
-        if(empresaId == "" || productoId == "" || gestionId == "" || calculoId == ""){
-            alert("Por favor, selecciona todas las opciones");
-        } else {
-            $.ajax({
-                url: 'getDatos.php',
-                type: 'post',
-                data: {empresaId: empresaId, productoId: productoId, gestionId: gestionId, calculoId: calculoId},
-                dataType: 'json',
-                success: function(response){
-                    var len = response.length;
-                    $("#datos").empty();
-                    for( var i = 0; i<len; i++){
-                        var mes = response[i]['mes'];
-                        var valor = response[i]['valor'];
-                        $("#datos").append("<tr><td>"+mes+"</td><td>"+valor+"</td></tr>");
-                    }
-                }
-            });
+        // Si se seleccionó una empresa, obtener sus productos
+        if (empresaId != "") {
+            fetch('getProductos.php?empresa_id=' + empresaId)
+                .then(response => response.json())
+                .then(productos => {
+                    // Llenar opciones de producto para la empresa seleccionada
+                    productos.forEach(function(producto) {
+                        var option = document.createElement('option');
+                        option.value = producto.id;
+                        option.textContent = producto.nombre;
+                        productoSelect.appendChild(option);
+                    });
+                });
         }
     });
 });
@@ -93,3 +87,4 @@ $(document).ready(function(){
 
 </body>
 </html>
+

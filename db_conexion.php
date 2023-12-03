@@ -11,8 +11,8 @@ $conn = new mysqli($server, $user, $password, $db);
 // Verificar conexión
 if ($conn->connect_errno) {
   die("Conexión fallida: " . $conn->connect_errno);
-}else{
+} /*else{
   echo "conectado";
-}
+}*/
 
 ?>
