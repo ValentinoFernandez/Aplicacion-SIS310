@@ -30,7 +30,7 @@
         </li>
         <li>
           <span class="material-symbols-outlined">flag</span>
-          <a href="#">Reports</a>
+          <a href="Rentabilidad.php">Rentabilidad</a>
         </li>
         <hr>
         <h4>Advanced</h4>
