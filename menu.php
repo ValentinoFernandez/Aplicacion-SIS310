@@ -4,15 +4,18 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glassmorphism Sidebar HTML and CSS| CodingNepal</title>
+    
+    <title>SIS-310 Calculadora de Pareto y Rentabilidad</title>
     <!-- Linking Google font link for icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="assets/css/estilosm.css">
-  </head>
-  <body>
+
+</head>
+<body>
+
     <aside class="sidebar">
       <div class="logo">
-        <img src="images/logo.jpg" alt="logo">
+   
         <h2>App</h2>
       </div>
       <ul class="links">
@@ -24,20 +27,37 @@
             </a>
           </li>
           
+          <li>
+          <span class="material-symbols-outlined">person</span>
+          <a href="Comparar_Calculos.php">Historial de calculos</a>
+        </li>
+
         <li>
           <span class="material-symbols-outlined">show_chart</span>
           <a href="#">Revenue</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">flag</span>
-          <a href="Comparar_Rentabilidad.php">Rentabilidad</a>
+        <span class="material-symbols-outlined">flag</span>
+        <a href="Comparar_Rentabilidad.php">Rentabilidad</a>
         </li>
-        
-       
-        <li>
-          <span class="material-symbols-outlined">person</span>
-          <a href="#">Designer</a>
+
+        <li class="logout-link">    
+          <span class="material-symbols-outlined"></span>
+          <a href="php/cerrar_sesion.php" class="logout">Cerrar Sesion</a>
         </li>
+
+        </aside>
+
+            <h1>SIS-310 Calculadora de Pareto y Rentabilidad                             
+               Por:  
+               Julián Valentino Fernández Sivila 
+               Matias Burlecot Corso Flores</h1>
+      
+
+        </body>
+</html>
+       <!--
+     
         <li>
           <span class="material-symbols-outlined">group</span>
           <a href="#">Developer </a>
@@ -67,14 +87,11 @@
           <span class="material-symbols-outlined">settings</span>
           <a href="#">Settings</a>
         </li>
-        <li class="logout-link">    
-          <span class="material-symbols-outlined"></span>
-          <a href="php/cerrar_sesion.php" class="logout">Cerrar Sesion</a>
-        </li>
+
       </ul>
-    </aside>
+   
   </body>
-</html>
+</html>-->
 <!--<!DOCTYPE html>
 <html lang="en">
     <head>
@@ -130,7 +147,6 @@
             </ul>
         </nav>
 
-    </body>
-</html>-->
+-->
 
 

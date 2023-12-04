@@ -52,7 +52,7 @@ $conn->close();
     <button id="pareto" data-id="<?php echo $companyId; ?>">Pareto</button>
     <p>Pareto identifica el 20% de los factores que causan el 80% de los resultados, ayudando a priorizar eficientemente.</p>
     <button id="profitability" data-id="<?php echo $companyId; ?>">Rentabilidad y desempeño financiero</button>
-    <p>La rentabilidad del producto, La contribución a la rentabilidad.</p>
+    <p>La rentabilidad del producto, índice de comerciabilidad, contribución utilitaria.</p>
  
  <script src="Funciones_Calculos.js" charset="UTF-8"></script>
 </body>

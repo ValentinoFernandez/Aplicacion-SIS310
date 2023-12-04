@@ -14,7 +14,13 @@ $conn->close();
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="Style.css">
+
+    <h1> Comparando datos </h1>
+
 </head>
+<!-- Agrega esto a tu HTML -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <body>
 
     <label >Empresas guardadas</label><br>
@@ -37,8 +43,8 @@ $conn->close();
     <label >Comparación de calculos</label><br>
         <select class="right.align" name="calculos" id=comparación>
             <option value="">Elegir Tipo de comparación</option>
-            <option value="Pareto">Pareto</option>
-            <option value="Rentabilidad">Rentabilidad</option>
+            <option value="pareto">Pareto</option>
+            <option value="rentabilidad">Rentabilidad</option>
             </select><br>
 
 
@@ -57,8 +63,13 @@ $conn->close();
      <br>
 
     <table id="results">
+
     <!-- Results will be populated here -->
     </table>
+
+    <h2>Gráfico de Barras Simple</h2>
+
+<canvas id="myChart"></canvas>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -72,6 +83,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Evento cuando se cambia la empresa seleccionada
     empresaSelect.addEventListener('change', function() {
         var empresaId = empresaSelect.value;
+        var productoId = productoSelect.value
+        var calculoId = comparacionSelect.value
+        var gestionId = gestionSelect.value
 
         // Limpiar opciones de producto
         while (productoSelect.firstChild) {
@@ -92,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 });
         }
+
     });
 
     // Evento cuando se hace clic en "Compara"
@@ -107,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: 'empresaId=' + empresaId + '&productoId=' + productoId + '&gestionId=' + gestionId + '&calculoId=' + comparacionId
+                body: '&empresaId=' + empresaId + '&productoId=' + productoId + '&gestionId=' + gestionId + '&calculoId=' + comparacionId
             })
             .then(response => {
                 if (!response.ok) {
@@ -121,25 +136,89 @@ document.addEventListener('DOMContentLoaded', function() {
                     resultsTable.removeChild(resultsTable.firstChild);
                 }
 
+            // Crear fila de encabezado
+            var headerRow = document.createElement('tr');
+            var headerCell1 = document.createElement('th');
+            var headerCell2 = document.createElement('th');
+            var headerCell3 = document.createElement('th');
+            var headerCell4 = document.createElement('th');
+            headerCell1.textContent = "Mes";
+
+            // Seleccionar el valor correcto según el tipo de comparación
+            if (comparacionId === "pareto") {
+                headerCell2.textContent = "Ingreso de Venta";
+                headerCell3.textContent = "Cantidad de Unidades";
+                headerCell4.textContent = "Precio Unitario";
+            } else if (comparacionId === "rentabilidad") {
+                headerCell2.textContent = "Rentabilidad";
+                headerCell3.textContent = "Índice de Comerciabilidad";
+                headerCell4.textContent = "Contribución Utilitaria";
+            }
+
+            headerRow.appendChild(headerCell1);
+            headerRow.appendChild(headerCell2);
+            headerRow.appendChild(headerCell3);
+            headerRow.appendChild(headerCell4);
+            resultsTable.appendChild(headerRow);
+
+            var nombres = [];
+            var valores = [];
+
                 // Mostrar nuevos resultados en la tabla
                 datos.forEach(function(dato) {
                     var row = document.createElement('tr');
                     var cell1 = document.createElement('td');
                     var cell2 = document.createElement('td');
+                    var cell3 = document.createElement('td');
+                    var cell4 = document.createElement('td');
                     cell1.textContent = dato.mes;
+                    nombres.push(dato.mes);
 
                     // Seleccionar el valor correcto según el tipo de comparación
-                    if (comparacionId === "Pareto") {
+                    if (comparacionId === "pareto") {
                         cell2.textContent = dato.ingreso_venta;
-                    } else if (comparacionId === "Rentabilidad") {
+                        cell3.textContent = dato.cantidad_unidades;
+                        cell4.textContent = dato.precio_unitario;
+                        valores.push(dato.ingreso_venta);
+                    } else if (comparacionId === "rentabilidad") {
                         cell2.textContent = dato.rentabilidad;
+                        cell3.textContent = dato.indice_comerciabilidad;
+                        cell4.textContent = dato.contribucion_utilitaria;
+                        valores.push(dato.rentabilidad);
                     }
 
                     row.appendChild(cell1);
                     row.appendChild(cell2);
+                    row.appendChild(cell3);
+                    row.appendChild(cell4);
                     resultsTable.appendChild(row);
                 });
-            })
+
+
+
+            // Crear gráfico
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: nombres,
+                    datasets: [{
+                        label: comparacionId === "pareto" ? 'Ingreso de Venta' : 'Rentabilidad',
+                        data: valores,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
             .catch(error => {
                 console.error('Hubo un problema con la operación de fetch:', error);
             });

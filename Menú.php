@@ -14,12 +14,12 @@ $result = $conn->query($sql);
 </head>
 <body>
     <!--<h1>Bienvenido 'Nombre de Usuario': Biblioteca de empresas</h1>-->
-    <h1>Bienvenido '<?php echo $usuario; ?>': Biblioteca de empresas</h1>
+    <h1>Bienvenido: Biblioteca de empresas</h1>
     <table>
         <tr>
             <th>Nombre empresa</th>
             <th>Ver</th>
-            <th>Editar</th>
+         
             <th>Eliminar</th>
         </tr>
         <?php
@@ -28,7 +28,7 @@ $result = $conn->query($sql);
                 echo "<tr>";
                 echo "<td>" . $row["nombre"] . "</td>";
                 echo "<td><button class='ver' data-id='" . $row["id"] . "'>Ver</button></td>";
-                echo "<td><button class='editar' data-id='" . $row["id"] . "'>Editar</button></td>";
+               
                 echo "<td><button class='eliminar' action='Eliminar.php' data-id='" . $row["id"] . "'>Eliminar</button></td>";
                 echo "</tr>";
             }
