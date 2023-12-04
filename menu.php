@@ -30,10 +30,10 @@
         </li>
         <li>
           <span class="material-symbols-outlined">flag</span>
-          <a href="Rentabilidad.php">Rentabilidad</a>
+          <a href="Comparar_Rentabilidad.php">Rentabilidad</a>
         </li>
-        <hr>
-        <h4>Advanced</h4>
+        
+       
         <li>
           <span class="material-symbols-outlined">person</span>
           <a href="#">Designer</a>
@@ -54,8 +54,7 @@
           <span class="material-symbols-outlined">monitoring</span>
           <a href="#">Analytic</a>
         </li>
-        <hr>
-        <h4>Account</h4>
+       
         <li>
           <span class="material-symbols-outlined">bar_chart</span>
           <a href="#">Overview</a>
