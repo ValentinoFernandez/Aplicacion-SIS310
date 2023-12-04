@@ -50,9 +50,11 @@ $conn->close();
             <option value="2021">2021</option>
             <option value="2022">2022</option>
             <option value="2023">2023</option>
-            </select><br>
+            </select>
+            <br>
 
-    <button id="compare">Compare</button> <br>
+    <button id="compare">Compare</button>
+     <br>
 
     <table id="results">
     <!-- Results will be populated here -->
@@ -63,8 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var empresaSelect = document.getElementById('empresa');
     var productoSelect = document.getElementById('producto');
     var gestionSelect = document.getElementById('gestion');
-    var calculoSelect = document.getElementById('comparación');
-    var compareButton = document.getElementById('compare');
+    var comparacionSelect = document.getElementById('comparación');
+    var comparaButton = document.getElementById('compare');
     var resultsTable = document.getElementById('results');
 
     // Evento cuando se cambia la empresa seleccionada
@@ -92,20 +94,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    compareButton.addEventListener('click', function() {
-    var empresaId = empresaSelect.value;
-    var productoId = productoSelect.value;
-    var gestionId = gestionSelect.value;
-    var calculoId = calculoSelect.value;
+    // Evento cuando se hace clic en "Compara"
+    comparaButton.addEventListener('click', function() {
+        var empresaId = empresaSelect.value;
+        var productoId = productoSelect.value;
+        var comparacionId = comparacionSelect.value;
+        var gestionId = gestionSelect.value;
 
-    if (empresaId != "" && productoId != "" && gestionId != "" && calculoId != "") {
-        fetch('getDatos.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'empresaId=' + empresaId + '&productoId=' + productoId + '&gestionId=' + gestionId + '&calculoId=' + calculoId
-        })
+        if (empresaId !== "" && productoId !== "" && comparacionId !== "" && gestionId !== "") {
+            fetch('getDatos.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'empresaId=' + empresaId + '&productoId=' + productoId + '&gestionId=' + gestionId + '&calculoId=' + comparacionId
+            })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -113,37 +116,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(datos => {
-                // Clear previous results
+                // Limpiar resultados anteriores
                 while (resultsTable.firstChild) {
                     resultsTable.removeChild(resultsTable.firstChild);
                 }
 
-                // Check if datos is an array
-                if (Array.isArray(datos)) {
-                    // Populate table with new results
-                    datos.forEach(function(dato) {
-                        var row = document.createElement('tr');
-                        var cell1 = document.createElement('td');
-                        var cell2 = document.createElement('td');
-                        cell1.textContent = dato.mes;
-                        cell2.textContent = calculoId == "pareto" ? dato.ingreso_venta : dato.rentabilidad;
-                        row.appendChild(cell1);
-                        row.appendChild(cell2);
-                        resultsTable.appendChild(row);
-                    });
-                } else {
-                    console.error('Invalid response format. datos is not an array.');
-                }
+                // Mostrar nuevos resultados en la tabla
+                datos.forEach(function(dato) {
+                    var row = document.createElement('tr');
+                    var cell1 = document.createElement('td');
+                    var cell2 = document.createElement('td');
+                    cell1.textContent = dato.mes;
+
+                    // Seleccionar el valor correcto según el tipo de comparación
+                    if (comparacionId === "Pareto") {
+                        cell2.textContent = dato.ingreso_venta;
+                    } else if (comparacionId === "Rentabilidad") {
+                        cell2.textContent = dato.rentabilidad;
+                    }
+
+                    row.appendChild(cell1);
+                    row.appendChild(cell2);
+                    resultsTable.appendChild(row);
+                });
             })
             .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
+                console.error('Hubo un problema con la operación de fetch:', error);
             });
-    }
-});
+        }
+    });
+})
+        
+    </script>
 
-
-});
-</script>
 
 </body>
 </html>

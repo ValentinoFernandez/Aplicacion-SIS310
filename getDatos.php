@@ -1,37 +1,29 @@
 <?php
-header('Content-Type: application/json');
+// Aquí debes establecer la conexión con tu base de datos
+include 'db_conexion.php';
 
+header('Content-Type: application/json');
 $empresaId = $_POST['empresaId'];
 $productoId = $_POST['productoId'];
 $gestionId = $_POST['gestionId'];
 $calculoId = $_POST['calculoId'];
 
-include 'db_conexion.php';
-
-$response = array(); // Crear un array para la respuesta
-
 if ($calculoId == "pareto") {
-    $sql = "SELECT mes, ingreso_venta FROM pareto WHERE id_producto = $productoId AND Gestion = $gestionId";
-} elseif ($calculoId == "rentabilidad") {
-    $sql = "SELECT mes, rentabilidad, indice_comerciabilidad, contribucion_utilitaria FROM rentabilidad WHERE id_producto = $productoId AND Gestion = $gestionId";
-} else {
-    $response['error'] = 'Cálculo no válido'; // Manejar casos de cálculos no válidos
-    echo json_encode($response);
-    exit();
+    $sql = "SELECT mes, ingreso_venta FROM pareto WHERE id_producto = ? AND Gestion = ?";
+} else if ($calculoId == "rentabilidad") {
+    $sql = "SELECT mes, rentabilidad, indice_comerciabilidad, contribucion_utilitaria FROM rentabilidad WHERE id_producto = ? AND Gestion = ?";
 }
 
-$result = $conn->query($sql);
+// Utiliza consultas preparadas para mayor seguridad
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ii", $productoId, $gestionId);
 
-if ($result) {
-    $datos = array();
-    while ($row = $result->fetch_assoc()) {
-        $datos[] = $row;
-    }
-    $response['data'] = $datos; // Incluir datos en la respuesta
-} else {
-    $response['error'] = 'Error en la consulta: ' . $conn->error; // Incluir mensaje de error en la respuesta
+if ($stmt->execute()) {
+    $result = $stmt->get_result();
+    $datos = $result->fetch_all(MYSQLI_ASSOC);
+    echo json_encode($datos);
 }
 
-echo json_encode($response);
+$stmt->close();
 $conn->close();
 ?>
